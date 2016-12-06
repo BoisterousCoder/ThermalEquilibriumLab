@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Canvas Stuff</title>
+        <meta charset="utf-8"/>
+        <script src="JS/JQuery.js"></script>
+        <script src="JS/LightenColor.js"></script>
+        <script src="JS/Point.js"></script>
+        <script src="JS/Line.js"></script>
+        <script src="JS/Poly.js"></script>
+        <script src="JS/Click.js"></script>
+        <script src="JS/MainLoop.js"></script>
+        <script src="JS/Start.js"></script>
+        <style>
+            canvas{
+                position: absolute;
+                top:0;
+                left: 0;
+            }
+            #settings{
+                display: inline-block;
+            }
+            span{
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id='mainCanvas'>You dont have html5</canvas>
+        <div id='settings'>
+            <span class='setting' type='color' var='backgroundColor'></span>
+            <span class='setting' type='color' var='ballColor'></span>
+            <span class='setting' type='range' var='ballRadius' max='20' min='1'></span>
+            <span class='setting' type='range' var='ballMass' max='20' min='5'></span>
+            <span class='setting' type='range' var='arrowKeyForce' max='20' min='5'></span>
+            <span class='setting' type='range' var='frictionScale' max='15' min='1'></span>
+            <span class='setting' type='range' var='pizzaSlider' max='4' min='1'></span>
+        </div>
+    </body>
+</html>
