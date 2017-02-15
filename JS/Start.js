@@ -3,13 +3,14 @@ const fps = 30;
 
 //settings
 var backgroundColor = '#0000ff';
-var ballColor = '#ff0000';
-var ballRadius = 5;
-var ballMass = 8;
+var particleColor = '#ff0000';
+var particleRadius = 0.5;
+var particleMass = 8;
+var numberOfParticles = 200;
+var initTemp = 75;
 var frictionScale = 10;//keep bellow 15
-var arrowKeyForce = 10;
-var isFriction = true;
-var pizzaSlider = 4;
+//var arrowKeyForce = 10;
+var isFriction = false;
 
 //global vars
 var ctx;
@@ -25,38 +26,45 @@ $(function(){
     refreshSize();
     initClickHandler();
     
-    //premake ball obj
-    var initPoint = new Point(50, 50);
-    var initForce = new Point(0, 0);
-    makeBall(initPoint, ballRadius, ballMass, initForce)
+    //premake particle obj
+    for(let i = 0; i < numberOfParticles; i++){
+        let initForce = new Point(0, 0);
+        initForce.r = initTemp;
+        initForce.deg = i*(360/numberOfParticles);
+        let initPoint = getPointOnCircle(((2*numberOfParticles-1)*particleRadius-1)/(2*Math.PI), i*(1/numberOfParticles))
+        initPoint.x += 50;
+        initPoint.y += 50;
+        
+        makeParticle(initPoint, particleRadius, particleMass, initForce);
+    }
     
-    initArrowKeys();
+    //initArrowKeys();
     
     //start loop
     setInterval(mainLoop, 1000/fps);
 });
 window.onresize = refreshSize;
-function makeBall(initPoint, radius, mass, initForce){
-    var ball = new Point(initPoint.x, initPoint.y);
-    ball.vel = new Point(0, 0);
-    ball.mass =  mass;
-    ball.radius = radius;
-    ball.applyForce = function(force){
-        accelleration = force.scale(1/ball.mass);
-        ball.vel.x += accelleration.x;
-        ball.vel.y += accelleration.y;
+function makeParticle(initPoint, radius, mass, initForce){
+    var particle = new Point(initPoint.x, initPoint.y);
+    particle.vel = new Point(0, 0);
+    particle.mass =  mass;
+    particle.radius = radius;
+    particle.applyForce = function(force){
+        accelleration = force.scale(1/particle.mass);
+        particle.vel.x += accelleration.x;
+        particle.vel.y += accelleration.y;
     }
-    ball.applyForce(initForce);
-    ball.clickHandler = new Clickable(ball, radius);
-    ball.clickHandler.onClick = function(startPoint){
-        ball.clickHandler.onRelease = function(endPoint){
+    particle.applyForce(initForce);
+    particle.clickHandler = new Clickable(particle, radius);
+    particle.clickHandler.onClick = function(startPoint){
+        particle.clickHandler.onRelease = function(endPoint){
             var force = new Point(0, 0);
-            force.x = ball.x-endPoint.x;
-            force.y = ball.y-endPoint.y;
-            ball.applyForce(force);
+            force.x = particle.x-endPoint.x;
+            force.y = particle.y-endPoint.y;
+            particle.applyForce(force);
         }
     }
-    projectiles.push(ball);
+    projectiles.push(particle);
 }
 function printInputs(){
     settingContainers = $('.setting');
@@ -102,43 +110,43 @@ function printInputs(){
         
     });
 }
-function initArrowKeys(){
+/*function initArrowKeys(){
     var arrowUp = new Key('ArrowUp');
     arrowUp.onPress = function(){
         var force = new Point(0, -arrowKeyForce);
         projectiles[0].applyForce(force);
-        makeProjectedBall(force)
+        makeProjectedParticle(force)
     }
     
     var arrowDown = new Key('ArrowDown');
     arrowDown.onPress = function(){
         var force = new Point(0, arrowKeyForce);
         projectiles[0].applyForce(force);
-        makeProjectedBall(force)
+        makeProjectedParticle(force)
     }
     
     var arrowLeft = new Key('ArrowLeft');
     arrowLeft.onPress = function(){
         var force = new Point(-arrowKeyForce, 0);
         projectiles[0].applyForce(force);
-        makeProjectedBall(force)
+        makeProjectedParticle(force)
     }
     
     var arrowRight = new Key('ArrowRight');
     arrowRight.onPress = function(){
         var force = new Point(arrowKeyForce, 0);
         projectiles[0].applyForce(force);
-        makeProjectedBall(force)
+        makeProjectedParticle(force)
     }
     
-    function makeProjectedBall(force){
+    function makeProjectedParticle(force){
         var initPoint = new Point(projectiles[0].x, projectiles[0].y);
         var initForce = new Point(-force.x, -force.y);
         var radius = Math.abs(initForce.r);
         var mass = radius;
-        makeBall(initPoint, radius, mass, initForce);
+        makeParticle(initPoint, radius, mass, initForce);
     }
-}
+}*/
 function refreshSize(){
     if(window.innerWidth < window.innerHeight){
         ctx.canvas.width = window.innerWidth;

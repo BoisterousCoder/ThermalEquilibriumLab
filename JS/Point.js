@@ -14,32 +14,9 @@ class Point{
         var x = c.canvas.width*(this.x/100);
         var y = c.canvas.width*(this.y/100);
         size = c.canvas.width*(size/100);
-        c.moveTo(x, y+size);(pizzaSlider);
-        switch(pizzaSlider){
-            case(4):
-                c.arcTo(x+size, y+size, x+size, y, size);
-                c.arcTo(x+size, y-size, x, y-size, size);
-                c.arcTo(x-size, y-size, x-size, y, size);
-                c.arcTo(x-size, y+size, x, y+size, size);
-                break;
-            case(3):
-                c.arcTo(x+size, y+size, x+size, y, size);
-                c.arcTo(x+size, y-size, x, y-size, size);
-                c.arcTo(x-size, y-size, x-size, y, size);
-                break;
-            case(2):
-                c.arcTo(x+size, y+size, x+size, y, size);
-                c.arcTo(x+size, y-size, x, y-size, size);
-                break;
-            case(1):
-                c.arcTo(x+size, y+size, x+size, y, size);
-                break;
-        }
-        
-        c.lineTo(x, y);
+        c.arc(x, y, size, 0, 2*Math.PI);
         c.closePath();
-        c.fill()
-        c.closePath()
+        c.fill();
         return this;
     }
     stroke(c, size){
@@ -49,7 +26,7 @@ class Point{
         var x = c.canvas.width*(this.x/100);
         var y = c.canvas.width*(this.y/100);
         size = c.canvas.width*(size/100);
-        c.arc(x, y, size, 0, 2*Math.PI*(pizzaSlider/100))
+        c.arc(x, y, size, 0, 2*Math.PI)
         c.stroke()
         c.closePath()
         c.lineWidth = oldWidth;
