@@ -5,13 +5,19 @@ const fps = 30;
 var backgroundColor = '#000000';
 var particleColor = '#00ff00';
 var particleRadius = 0.5;
-var particleMass = 8;
-var numberOfParticles = 200;
-var initTemp = 75;
 var canvasRatio = 2.1;
-var frictionScale = 10; //keep bellow 15
-//var arrowKeyForce = 10;
 var isFriction = false;
+var allowCrossOver = false
+
+//left side
+var initTempLeft = 40;
+var particleMassLeft = 2;
+var numberOfParticlesLeft = 100;
+
+//right side
+var initTempRight = 80;
+var particleMassRight = 8;
+var numberOfParticlesRight = 200;
 
 //global vars
 var ctx;
@@ -29,18 +35,26 @@ $(function () {
 	initClickHandler();
 
 	//premake particle obj
-	for (let i = 0; i < numberOfParticles; i++) {
+	for (let i = 0; i < numberOfParticlesLeft; i++) {
 		let initForce = new Point(0, 0);
-		initForce.r = initTemp;
-		initForce.deg = i * (360 / numberOfParticles);
-		let initPoint = getPointOnCircle(((2 * numberOfParticles - 1) * particleRadius - 1) / (2 * Math.PI), i * (1 / numberOfParticles))
+		initForce.r = initTempLeft;
+		initForce.deg = i * (360 / numberOfParticlesLeft);
+		let initPoint = getPointOnCircle(((2 * numberOfParticlesLeft - 1) * particleRadius - 1) / (2 * Math.PI), i * (1 / numberOfParticlesLeft))
 		initPoint.x += 50;
 		initPoint.y += 50;
 
-		makeParticle(initPoint, particleRadius, particleMass, initForce, particlesLeft);
-		
-		initPoint.x += 110;
-		makeParticle(initPoint, particleRadius, particleMass, initForce, particlesRight);
+		makeParticle(initPoint, particleRadius, particleMassLeft, initForce, particlesLeft);
+	}
+	
+	for (let i = 0; i < numberOfParticlesRight; i++) {
+		let initForce = new Point(0, 0);
+		initForce.r = initTempRight;
+		initForce.deg = i * (360 / numberOfParticlesRight);
+		let initPoint = getPointOnCircle(((2 * numberOfParticlesRight - 1) * particleRadius - 1) / (2 * Math.PI), i * (1 / numberOfParticlesRight))
+		initPoint.x += 160;
+		initPoint.y += 50;
+
+		makeParticle(initPoint, particleRadius, particleMassRight, initForce, particlesRight);
 	}
 
 	//initArrowKeys();

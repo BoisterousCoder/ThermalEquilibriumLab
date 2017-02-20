@@ -1,23 +1,23 @@
 var isFirstLoop = true;
 
-function makeMainLoop(){
+function makeMainLoop() {
 	let args = Array.from(arguments);
-	return function(){
+	return function () {
 		mainLoop(...args);
 	};
 }
 
-function mainLoop(pariclesLeft, pariclesRight, translation) {
+function mainLoop(particlesLeft, particlesRight, translation) {
 	let leftTemps = [];
 	let rightTemps = [];
 	backgroundLoop();
 	c = ctx;
 
-	pariclesLeft.forEach(function (particle, i) {
+	particlesLeft.forEach(function (particle, i) {
 		leftTemps.push(particle.vel.r);
 		c.fillStyle = particleColor;
-		reflectParticle(particle, 0);
-		particleCollisions(i, pariclesLeft);
+		reflectParticle(particle, 0, i, particlesLeft, particlesRight);
+		particleCollisions(i, particlesLeft);
 		particle.fill(c, particle.radius);
 		particle.x += particle.vel.x / particle.mass;
 		particle.y += particle.vel.y / particle.mass;
@@ -29,14 +29,14 @@ function mainLoop(pariclesLeft, pariclesRight, translation) {
 			forceLine.stroke(c);
 		}
 	});
-	
+
 	$('#tempLeft').html(average(leftTemps));
-	
-	pariclesRight.forEach(function (particle, i) {
+
+	particlesRight.forEach(function (particle, i) {
 		rightTemps.push(particle.vel.r);
 		c.fillStyle = particleColor;
-		reflectParticle(particle, translation);
-		particleCollisions(i, pariclesRight);
+		reflectParticle(particle, translation, i, particlesLeft, particlesRight);
+		particleCollisions(i, particlesRight);
 		particle.fill(c, particle.radius);
 		particle.x += particle.vel.x / particle.mass;
 		particle.y += particle.vel.y / particle.mass;
@@ -48,7 +48,7 @@ function mainLoop(pariclesLeft, pariclesRight, translation) {
 			forceLine.stroke(c);
 		}
 	});
-	
+
 	$('#tempRight').html(average(rightTemps));
 }
 
@@ -60,9 +60,9 @@ function average(array) {
 	return avg;
 }
 
-function particleCollisions(checkIndex, pariclesLeft, pariclesRight) {
-	particle = pariclesLeft[checkIndex];
-	pariclesLeft.forEach(function (particleToCheck, i) {
+function particleCollisions(checkIndex, particles) {
+	particle = particles[checkIndex];
+	particles.forEach(function (particleToCheck, i) {
 		if (i != checkIndex && i != 0) {
 			var distance = particleToCheck.distance(particle);
 			if (distance.r < particleToCheck.radius + particle.radius) {
@@ -85,23 +85,35 @@ function backgroundLoop() {
 	c.closePath()
 }
 
-function reflectParticle(particle, translation) {
+function reflectParticle(particle, translation, i, particlesLeft, particlesRight) {
 	//right side
 	if (particle.x + particle.radius >= 100 + translation) {
-		while (particle.x + particle.radius >= 100 +translation) {
-			particle.x -= 1;
+		if (translation == 0 && allowCrossOver) {
+			particle.x += 11;
+			particlesRight.push(particle);
+			particlesLeft.splice(i, 1);
+		} else {
+			while (particle.x + particle.radius >= 100 + translation) {
+				particle.x -= 1;
+			}
+			let wallAngle = 90;
+			particle.vel.deg = 2 * wallAngle - particle.vel.deg;
 		}
-		let wallAngle = 90;
-		particle.vel.deg = 2 * wallAngle - particle.vel.deg;
 	}
 
 	//left side
 	if (particle.x - particle.radius <= 0 + translation) {
-		while (particle.x + particle.radius <= 0 + translation) {
-			particle.x += 1;
+		if (translation != 0 && allowCrossOver) {
+			particle.x -= 11;
+			particlesLeft.push(particle);
+			particlesRight.splice(i, 1);
+		} else {
+			while (particle.x + particle.radius <= 0 + translation) {
+				particle.x += 1;
+			}
+			let wallAngle = -90;
+			particle.vel.deg = 2 * wallAngle - particle.vel.deg;
 		}
-		let wallAngle = -90;
-		particle.vel.deg = 2 * wallAngle - particle.vel.deg;
 	}
 
 	//top
