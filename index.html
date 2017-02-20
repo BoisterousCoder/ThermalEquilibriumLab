@@ -20,23 +20,21 @@
             #settings{
                 display: inline-block;
             }
-            span{
-                display:block;
-            }
         </style>
     </head>
     <body>
         <canvas id='mainCanvas'>You dont have html5</canvas>
         <div id='settings'>
-            Temp:<span class='temp'></span>
-            <span class='setting' type='color' var='backgroundColor'></span>
-            <span class='setting' type='color' var='particleColor'></span>
-            <!--<span class='setting' type='range' var='particleRadius' max='20' min='1'></span>-->
-            <span class='setting' type='range' var='particleMass' max='20' min='5'></span>
-            <span class='setting' type='range' var='initTemp' max='20' min='1'></span>
-            <span class='setting' type='range' var='numberOfParticles' max='100' min='50'></span>
-            <!--<span class='setting' type='range' var='arrowKeyForce' max='20' min='5'></span>-->
-            <!--<span class='setting' type='range' var='frictionScale' max='15' min='1'></span>-->
+            TempLeft:<span class='temp' id='tempLeft'></span><br/>
+            TempRight:<span class='temp' id='tempRight'></span><br/>
+            <span class='setting' type='color' var='backgroundColor'></span><br/>
+            <span class='setting' type='color' var='particleColor'></span><br/>
+            <!--<span class='setting' type='range' var='particleRadius' max='20' min='1'></span><br/>-->
+            <span class='setting' type='range' var='particleMass' max='20' min='5'></span><br/>
+            <span class='setting' type='range' var='initTemp' max='20' min='1'></span><br/>
+            <span class='setting' type='range' var='numberOfParticles' max='100' min='50'></span><br/>
+            <!--<span class='setting' type='range' var='arrowKeyForce' max='20' min='5'></span><br/>-->
+            <!--<span class='setting' type='range' var='frictionScale' max='15' min='1'></span><br/>-->
         </div>
     </body>
 </html>
