@@ -28,8 +28,13 @@ function mainLoop(){
             var forceLine = new Line(particle, mouse);
             forceLine.stroke(c);
         }
-    });
-    
+    });    
+}
+
+function average(){
+    var sum = times.reduce(function(a, b) { return a + b; });
+    var avg = sum / times.length;
+
 }
 
 function particleCollisions(checkIndex){
@@ -40,6 +45,9 @@ function particleCollisions(checkIndex){
             if(distance.r < particleToCheck.radius + particle.radius){
                 let wallAngle = distance.deg + 90;
                 particle.vel.deg = 2*wallAngle - particle.vel.deg;
+                let newSpeed = (particleToCheck.vel.r + particle.vel.r)/2
+                particleToCheck.vel.r = newSpeed;
+                particle = newSpeed;
             }
         }
     });
@@ -66,24 +74,36 @@ function airResistance(particle){
 function reflectParticle(particle){
     //right side
     if(particle.x + particle.radius >= 100){
+        while(particle.x + particle.radius >= 100){
+            particle.x -= 1;
+        }
         let wallAngle = 90;
         particle.vel.deg = 2*wallAngle - particle.vel.deg;
     }
     
     //left side
     if(particle.x - particle.radius <= 0){
+        while(particle.x + particle.radius <= 0){
+            particle.x += 1;
+        }
         let wallAngle = -90;
         particle.vel.deg = 2*wallAngle - particle.vel.deg;
     }
     
     //top
     if(particle.y + particle.radius >= 100){
+        while(particle.y + particle.radius >= 100){
+            particle.y -= 1;
+        }
         let wallAngle = 0;
         particle.vel.deg = 2*wallAngle - particle.vel.deg;
     }
     
     //bottomn
     if(particle.y - particle.radius <= 0){
+        while(particle.y + particle.radius <= 0){
+            particle.y += 1;
+        }
         let wallAngle = 180;
         particle.vel.deg = 2*wallAngle - particle.vel.deg;
     }

@@ -2,8 +2,8 @@
 const fps = 30;
 
 //settings
-var backgroundColor = '#0000ff';
-var particleColor = '#ff0000';
+var backgroundColor = '#000000';
+var particleColor = '#00ff00';
 var particleRadius = 0.5;
 var particleMass = 8;
 var numberOfParticles = 200;
