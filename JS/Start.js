@@ -137,6 +137,7 @@ function printInputs() {
 
 		settingContainer.append(varName + ': ');
 		settingContainer.append(settingInput);
+		settingContainer.append('<p></p>');
 		var initValue = window[varName];
 		if (settingInput.attr('type') == 'checkbox') {
 			settingInput.attr('checked', initValue);
@@ -144,6 +145,10 @@ function printInputs() {
 			settingInput.val(initValue);
 		}
 
+	});
+	$('[type="range"]').change(function(e){
+		let target = $(this);
+		target.parent().children('p').html(target.val())
 	});
 }
 

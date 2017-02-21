@@ -30,7 +30,7 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		}
 	});
 
-	$('#tempLeft').html(average(leftTemps));
+	$('#tempLeft').html(Math.round(average(leftTemps)));
 
 	particlesRight.forEach(function (particle, i) {
 		rightTemps.push(particle.vel.r);
@@ -49,7 +49,7 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		}
 	});
 
-	$('#tempRight').html(average(rightTemps));
+	$('#tempRight').html(Math.round(average(rightTemps)));
 	
 	if(!allowCrossOver){
 		c.beginPath()

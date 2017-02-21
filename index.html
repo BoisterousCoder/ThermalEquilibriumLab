@@ -20,6 +20,9 @@
             #settings{
                 display: inline-block;
             }
+			p{
+				display: inline;
+			}
         </style>
     </head>
     <body>
@@ -32,8 +35,8 @@
 			<span class='setting' type='color' var='barrierColor'></span><br/>
             <span class='setting' type='checkbox' var='allowCrossOver'></span><br/>
 			<hr/>
-			<span class='setting' type='range' var='initTempLeft' max='30' min='5'></span><br/>
-			<span class='setting' type='range' var='initTempRight' max='30' min='5'></span><br/>
+			<span class='setting' type='range' var='initTempLeft' max='30' min='1'></span><br/>
+			<span class='setting' type='range' var='initTempRight' max='30' min='1'></span><br/>
 			<span class='setting' type='range' var='numberOfParticlesLeft' max='200' min='50'></span><br/>
 			<span class='setting' type='range' var='numberOfParticlesRight' max='200' min='50'></span><br/>
 			<button onclick="resetLoop()">Reset</button>
