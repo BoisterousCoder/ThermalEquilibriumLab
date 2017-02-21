@@ -50,6 +50,14 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 	});
 
 	$('#tempRight').html(average(rightTemps));
+	
+	if(!allowCrossOver){
+		c.beginPath()
+		c.fillStyle = barrierColor;
+		c.rect(c.canvas.width/2.1, 0, (0.1*c.canvas.width)/2.1, c.canvas.height)
+		c.fill()
+		c.closePath()
+	}
 }
 
 function average(array) {

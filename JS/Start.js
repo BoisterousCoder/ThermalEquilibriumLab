@@ -1,39 +1,54 @@
-//constants
+//user settings
 const fps = 30;
 
+//left side
+var initTempLeft = 20;
+var particleMassLeft = 1;
+var numberOfParticlesLeft = 100;
+
+//right side
+var initTempRight = 10;
+var particleMassRight = 1;
+var numberOfParticlesRight = 200;
+
+/*
+
+DO NOT GO PASS THIS POINT IF YOU DONT KNOW WHAT YOU ARE DOING
+
+*/
+
 //settings
-var backgroundColor = '#000000';
-var particleColor = '#00ff00';
+var backgroundColor = '#BFBFBF';
+var particleColor = '#453FC0';
+var barrierColor = '#ff0000';
 var particleRadius = 0.5;
 var canvasRatio = 2.1;
 var isFriction = false;
 var allowCrossOver = false
 
-//left side
-var initTempLeft = 40;
-var particleMassLeft = 2;
-var numberOfParticlesLeft = 100;
-
-//right side
-var initTempRight = 80;
-var particleMassRight = 8;
-var numberOfParticlesRight = 200;
-
 //global vars
 var ctx;
+var gameLoop;
 var mouse;
 
-$(function () {
-	var particlesLeft = [];
-	var particlesRight = [];
+$(function(){
 	var canvas = document.getElementById('mainCanvas');
 	var c = canvas.getContext('2d');
 	ctx = c;
-
 	printInputs();
+	init(c);
 	refreshSize();
-	initClickHandler();
+});
 
+function resetLoop(){
+	clearInterval(gameLoop)
+	init(ctx);
+}
+
+function init(c) {
+	var particlesLeft = [];
+	var particlesRight = [];
+	
 	//premake particle obj
 	for (let i = 0; i < numberOfParticlesLeft; i++) {
 		let initForce = new Point(0, 0);
@@ -60,8 +75,8 @@ $(function () {
 	//initArrowKeys();
 
 	//start loop
-	setInterval(makeMainLoop(particlesLeft, particlesRight, 110), 1000 / fps);
-});
+	gameLoop = setInterval(makeMainLoop(particlesLeft, particlesRight, 110), 1000 / fps);
+}
 window.onresize = refreshSize;
 
 function makeParticle(initPoint, radius, mass, initForce, list) {
@@ -131,43 +146,7 @@ function printInputs() {
 
 	});
 }
-/*function initArrowKeys(){
-    var arrowUp = new Key('ArrowUp');
-    arrowUp.onPress = function(){
-        var force = new Point(0, -arrowKeyForce);
-        projectiles[0].applyForce(force);
-        makeProjectedParticle(force)
-    }
-    
-    var arrowDown = new Key('ArrowDown');
-    arrowDown.onPress = function(){
-        var force = new Point(0, arrowKeyForce);
-        projectiles[0].applyForce(force);
-        makeProjectedParticle(force)
-    }
-    
-    var arrowLeft = new Key('ArrowLeft');
-    arrowLeft.onPress = function(){
-        var force = new Point(-arrowKeyForce, 0);
-        projectiles[0].applyForce(force);
-        makeProjectedParticle(force)
-    }
-    
-    var arrowRight = new Key('ArrowRight');
-    arrowRight.onPress = function(){
-        var force = new Point(arrowKeyForce, 0);
-        projectiles[0].applyForce(force);
-        makeProjectedParticle(force)
-    }
-    
-    function makeProjectedParticle(force){
-        var initPoint = new Point(projectiles[0].x, projectiles[0].y);
-        var initForce = new Point(-force.x, -force.y);
-        var radius = Math.abs(initForce.r);
-        var mass = radius;
-        makeParticle(initPoint, radius, mass, initForce);
-    }
-}*/
+
 function refreshSize() {
 	if (window.innerWidth < window.innerHeight) {
 		ctx.canvas.width = window.innerWidth;
