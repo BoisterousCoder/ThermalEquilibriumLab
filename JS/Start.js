@@ -3,12 +3,10 @@ const fps = 30;
 
 //left side
 var initTempLeft = 20;
-var particleMassLeft = 1;
 var numberOfParticlesLeft = 100;
 
 //right side
 var initTempRight = 10;
-var particleMassRight = 1;
 var numberOfParticlesRight = 200;
 
 /*
@@ -25,6 +23,7 @@ var particleRadius = 0.5;
 var canvasRatio = 2.1;
 var isFriction = false;
 var allowCrossOver = false
+var particleMass = 5;
 
 //global vars
 var ctx;
@@ -58,7 +57,7 @@ function init(c) {
 		initPoint.x += 50;
 		initPoint.y += 50;
 
-		makeParticle(initPoint, particleRadius, particleMassLeft, initForce, particlesLeft);
+		makeParticle(initPoint, particleRadius, particleMass, initForce, particlesLeft);
 	}
 	
 	for (let i = 0; i < numberOfParticlesRight; i++) {
@@ -69,7 +68,7 @@ function init(c) {
 		initPoint.x += 160;
 		initPoint.y += 50;
 
-		makeParticle(initPoint, particleRadius, particleMassRight, initForce, particlesRight);
+		makeParticle(initPoint, particleRadius, particleMass, initForce, particlesRight);
 	}
 
 	//initArrowKeys();
