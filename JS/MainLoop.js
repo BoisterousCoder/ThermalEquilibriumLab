@@ -89,7 +89,7 @@ function reflectParticle(particle, translation, i, particlesLeft, particlesRight
 	//right side
 	if (particle.x + particle.radius >= 100 + translation) {
 		if (translation == 0 && allowCrossOver) {
-			particle.x += 11;
+			particle.x += 1;
 			particlesRight.push(particle);
 			particlesLeft.splice(i, 1);
 		} else {
@@ -104,7 +104,7 @@ function reflectParticle(particle, translation, i, particlesLeft, particlesRight
 	//left side
 	if (particle.x - particle.radius <= 0 + translation) {
 		if (translation != 0 && allowCrossOver) {
-			particle.x -= 11;
+			particle.x -= 1;
 			particlesLeft.push(particle);
 			particlesRight.splice(i, 1);
 		} else {

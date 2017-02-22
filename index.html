@@ -26,17 +26,9 @@
 	</div>
 	<div id='settings'>
 		<format class='center block'>
-			<span class='setting' alias='Remove Barrier' type='checkbox' var='allowCrossOver'></span>
+			<span class='setting' alias='Remove Barrier' type='checkbox' var='allowCrossOver'></span><br/>
 			<button onclick="resetLoop()">Reset Tanks</button>
-		</format>
-		
-		<format class='block center'>
-			<div class="your-clock"></div>
-			<format class='block collumns3'>
-				<button class='block' id='startClock'>Start</button>
-				<button class='block' id='stopClock'>Stop</button>
-				<button class='block' id='resetClock'>reset</button>
-			</format>
+			<button onclick="openStopwatch()">Open Stopwatch</button>
 		</format>
 		
 		<hr/>
@@ -50,7 +42,7 @@
 
 			<format class='block'>
 				<format class='center block'>Right Tank Settings</format>
-				<span class='setting block' alias='Initial Temperatures' type='range' var='initTempRight' max='30' min='1'></span>
+				<span class='setting block' alias='Initial Temperature' type='range' var='initTempRight' max='30' min='1'></span>
 				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='50'></span>
 			</format>
 		</format>

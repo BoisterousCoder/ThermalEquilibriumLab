@@ -144,11 +144,11 @@ function printInputs() {
 		target.parent().children('p').html(target.val())
 	});
 	//Clock is http://flipclockjs.com/
-	let clock = $('.your-clock').FlipClock({});
-	clock.stop()
-	$('#startClock').click(function(){clock.start()});
-	$('#stopClock').click(function(){clock.stop()});
-	$('#resetClock').click(function(){clock.reset()});
+	
+}
+
+function openStopwatch(){
+	window.open('stopwatch.html', '_blank', 'channelmode=yes');
 }
 
 function refreshSize() {
