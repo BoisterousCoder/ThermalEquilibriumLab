@@ -1,0 +1,45 @@
+#canvasContainer {
+	margin: auto;
+	font-size: 2em;
+}
+
+#settings {
+	display: block;
+	width: 70%;
+	margin: auto;
+}
+
+.center {
+	text-align: center;
+	width: 100%;
+}
+
+.block {
+	display: block;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.collumns2 {
+	column-count: 2;
+	-moz-column-count: 2;
+}
+
+.collumns3 {
+	column-count: 3;
+	-moz-column-count: 3;
+}
+
+.floatRight {
+	float: right;
+}
+
+p {
+	display: inline;
+}
+
+.wide {
+	width: 100%%;
+}

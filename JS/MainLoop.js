@@ -24,10 +24,6 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 
 		c.strokeStyle = 'black';
 		c.lineWidth = 0.2;
-		if (particle.clickHandler.isActive) {
-			var forceLine = new Line(particle, mouse);
-			forceLine.stroke(c);
-		}
 	});
 
 	$('#tempLeft').html(Math.round(average(leftTemps)* particleMass));
@@ -43,10 +39,6 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 
 		c.strokeStyle = 'black';
 		c.lineWidth = 0.2;
-		if (particle.clickHandler.isActive) {
-			var forceLine = new Line(particle, mouse);
-			forceLine.stroke(c);
-		}
 	});
 
 	$('#tempRight').html(Math.round(average(rightTemps) * particleMass));
@@ -54,7 +46,7 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 	if(!allowCrossOver){
 		c.beginPath()
 		c.fillStyle = barrierColor;
-		c.rect(c.canvas.width/2.1, 0, (0.1*c.canvas.width)/2.1, c.canvas.height)
+		c.rect(c.canvas.width/canvasRatio, 0, ((2-canvasRatio)*c.canvas.width)/canvasRatio, c.canvas.height)
 		c.fill()
 		c.closePath()
 	}

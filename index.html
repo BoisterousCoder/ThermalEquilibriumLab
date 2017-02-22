@@ -1,47 +1,71 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Canvas Stuff</title>
-        <meta charset="utf-8"/>
-        <script src="JS/JQuery.js"></script>
-        <script src="JS/LightenColor.js"></script>
-        <script src="JS/Point.js"></script>
-        <script src="JS/Line.js"></script>
-        <script src="JS/Poly.js"></script>
-        <script src="JS/Click.js"></script>
-        <script src="JS/MainLoop.js"></script>
-        <script src="JS/Start.js"></script>
-        <style>
-            canvas{
-                position: absolute;
-                top:0;
-                left: 0;
-            }
-            #settings{
-                display: inline-block;
-            }
-			p{
-				display: inline;
-			}
-        </style>
-    </head>
-    <body>
-        <canvas id='mainCanvas'>You dont have html5</canvas>
-        <div id='settings'>
-            TempLeft:<span class='temp' id='tempLeft'></span><br/>
-            TempRight:<span class='temp' id='tempRight'></span><br/>
-            <span class='setting' type='color' var='particleColor'></span><br/>
-            <span class='setting' type='color' var='backgroundColor'></span><br/>
-			<span class='setting' type='color' var='barrierColor'></span><br/>
-            <span class='setting' type='checkbox' var='allowCrossOver'></span><br/>
-			<hr/>
-			Temperatures may be inaccuate if you change anything after this point, until you hit the reset button
-			<span class='setting' type='range' var='initTempLeft' max='30' min='1'></span><br/>
-			<span class='setting' type='range' var='initTempRight' max='30' min='1'></span><br/>
-			<span class='setting' type='range' var='numberOfParticlesLeft' max='200' min='50'></span><br/>
-			<span class='setting' type='range' var='numberOfParticlesRight' max='200' min='50'></span><br/>
-			<span class='setting' type='range' var='particleMass' max='10' min='1'></span><br/>
-			<button onclick="resetLoop()">Reset</button>
-        </div>
-    </body>
+
+<head>
+	<title>Canvas Stuff</title>
+	<meta charset="utf-8" />
+	<script src="JS/JQuery.js"></script>
+	<script src="JS/flipclock.min.js"></script>
+	<script src="JS/Point.js"></script>
+	<script src="JS/MainLoop.js"></script>
+	<script src="JS/Start.js"></script>
+	<link rel="stylesheet" href="CSS/flipclock.css">
+	<link rel="stylesheet" href="CSS/main.css">
+</head>
+
+<body>
+	<div id='canvasContainer'>
+		<label>Left Tank Temperature:
+			<span class='temp' id='tempLeft'></span>
+		</label>
+		<label>Right Tank Temperature:
+			<span class='temp' id='tempRight'></span>
+		</label>
+		<br/>
+		<canvas id='mainCanvas'>You dont have html5</canvas>
+	</div>
+	<div id='settings'>
+		<format class='center block'>
+			<span class='setting' alias='Remove Barrier' type='checkbox' var='allowCrossOver'></span>
+			<button onclick="resetLoop()">Reset Tanks</button>
+		</format>
+		
+		<format class='block center'>
+			<div class="your-clock"></div>
+			<format class='block collumns3'>
+				<button class='block' id='startClock'>Start</button>
+				<button class='block' id='stopClock'>Stop</button>
+				<button class='block' id='resetClock'>reset</button>
+			</format>
+		</format>
+		
+		<hr/>
+
+		<format class='block collumns2'>
+			<format class='block'>
+				<format class='center block'>Left Tank Settings</format>
+				<span class='setting block' alias='Initial Temperature' type='range' var='initTempLeft' max='30' min='1'></span>
+				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesLeft' max='200' min='50'></span>
+			</format>
+
+			<format class='block'>
+				<format class='center block'>Right Tank Settings</format>
+				<span class='setting block' alias='Initial Temperatures' type='range' var='initTempRight' max='30' min='1'></span>
+				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='50'></span>
+			</format>
+		</format>
+
+		<hr/>
+		
+		<format class='center block'>Extras</format>
+		<format class='block collumns3'>
+			<format class='block'>
+				<span class='setting block' type='color' alias='Particle Color' var='particleColor'></span>
+				<span class='setting block' type='color' alias='Background Color' var='backgroundColor'></span>
+				<span class='setting block' type='color' alias='Barrier Color' var='barrierColor'></span>
+			</format>
+		</format>
+	</div>
+</body>
+
 </html>

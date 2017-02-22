@@ -20,9 +20,9 @@ var backgroundColor = '#BFBFBF';
 var particleColor = '#453FC0';
 var barrierColor = '#ff0000';
 var particleRadius = 0.5;
-var canvasRatio = 2.1;
+var canvasRatio = 2.01;
 var isFriction = false;
-var allowCrossOver = false
+var allowCrossOver = false;
 var particleMass = 5;
 
 //global vars
@@ -40,7 +40,8 @@ $(function(){
 });
 
 function resetLoop(){
-	clearInterval(gameLoop)
+	allowCrossOver = false;
+	clearInterval(gameLoop);
 	init(ctx);
 }
 
@@ -65,7 +66,7 @@ function init(c) {
 		initForce.r = initTempRight;
 		initForce.deg = i * (360 / numberOfParticlesRight);
 		let initPoint = getPointOnCircle(((2 * numberOfParticlesRight - 1) * particleRadius - 1) / (2 * Math.PI), i * (1 / numberOfParticlesRight))
-		initPoint.x += 160;
+		initPoint.x += 151;
 		initPoint.y += 50;
 
 		makeParticle(initPoint, particleRadius, particleMass, initForce, particlesRight);
@@ -74,7 +75,7 @@ function init(c) {
 	//initArrowKeys();
 
 	//start loop
-	gameLoop = setInterval(makeMainLoop(particlesLeft, particlesRight, 110), 1000 / fps);
+	gameLoop = setInterval(makeMainLoop(particlesLeft, particlesRight, 100), 1000 / fps);
 }
 window.onresize = refreshSize;
 
@@ -89,15 +90,6 @@ function makeParticle(initPoint, radius, mass, initForce, list) {
 		particle.vel.y += accelleration.y;
 	}
 	particle.applyForce(initForce);
-	particle.clickHandler = new Clickable(particle, radius);
-	particle.clickHandler.onClick = function (startPoint) {
-		particle.clickHandler.onRelease = function (endPoint) {
-			var force = new Point(0, 0);
-			force.x = particle.x - endPoint.x;
-			force.y = particle.y - endPoint.y;
-			particle.applyForce(force);
-		}
-	}
 	list.push(particle);
 }
 
@@ -132,12 +124,14 @@ function printInputs() {
 			}
 			window[varName] = value;
 		});
-
-
-		settingContainer.append(varName + ': ');
+		
+		let alias = settingContainer.attr('alias');
+		settingContainer.append(alias + ': ');
 		settingContainer.append(settingInput);
-		settingContainer.append('<p></p>');
 		var initValue = window[varName];
+		if (settingInput.attr('type') == 'range') {
+			settingContainer.append('<p>'+initValue+'</p>');
+		}
 		if (settingInput.attr('type') == 'checkbox') {
 			settingInput.attr('checked', initValue);
 		} else {
@@ -149,21 +143,21 @@ function printInputs() {
 		let target = $(this);
 		target.parent().children('p').html(target.val())
 	});
+	//Clock is http://flipclockjs.com/
+	let clock = $('.your-clock').FlipClock({});
+	clock.stop()
+	$('#startClock').click(function(){clock.start()});
+	$('#stopClock').click(function(){clock.stop()});
+	$('#resetClock').click(function(){clock.reset()});
 }
 
 function refreshSize() {
-	if (window.innerWidth < window.innerHeight) {
-		ctx.canvas.width = window.innerWidth;
-		ctx.canvas.height = window.innerWidth / canvasRatio;
-		$('#settings').css('margin-top', ctx.canvas.height);
-		$('#settings').css('margin-left', 0);
-	} else {
-		ctx.canvas.width = window.innerHeight;
-		ctx.canvas.height = window.innerHeight / canvasRatio;
-		$('#settings').css('margin-left', ctx.canvas.width);
-		$('#settings').css('margin-top', 0);
-	}
-
+	ctx.canvas.width = window.innerWidth*0.7;
+	ctx.canvas.height = window.innerWidth*0.7 / canvasRatio;
+	$('#canvasContainer').css('width', ctx.canvas.width);
+	$('#canvasContainer label').css('width', ctx.canvas.width/2.1);
+	$('#canvasContainer label').css('display', 'inline-block');
+	$('#canvasContainer label').css('text-align', 'center');
 }
 
 function getPointOnCircle(radius, time) {
