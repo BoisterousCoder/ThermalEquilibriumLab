@@ -29,7 +29,7 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		c.lineWidth = 0.2;
 	});
 
-	$('#tempLeft').html(Math.round(average(leftTemps)* particleMass));
+	$('#tempLeft').html(Math.round(average(leftTemps)* particleMass * roundingAccuaracy)/roundingAccuaracy);
 
 	particlesRight.forEach(function (particle, i) {
 		rightTemps.push(particle.vel.r);
@@ -44,7 +44,7 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		c.lineWidth = 0.2;
 	});
 
-	$('#tempRight').html(Math.round(average(rightTemps) * particleMass));
+	$('#tempRight').html(Math.round(average(rightTemps) * particleMass * roundingAccuaracy)/roundingAccuaracy);
 	
 	if(!allowCrossOver){
 		c.beginPath()

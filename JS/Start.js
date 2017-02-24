@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 //user settings
 const fps = 30;
+const roundingAccuaracy = 100;
 
 //left side
 var initTempLeft = 20;
