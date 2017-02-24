@@ -7,7 +7,6 @@
 	<title>Canvas Stuff</title>
 	<meta charset="utf-8" />
 	<script src="JS/JQuery.js"></script>
-	<script src="JS/flipclock.min.js"></script>
 	<script src="JS/Point.js"></script>
 	<script src="JS/MainLoop.js"></script>
 	<script src="JS/Start.js"></script>
@@ -28,9 +27,11 @@
 	</div>
 	<div id='settings'>
 		<format class='center block'>
-			<span class='setting' alias='Remove Barrier' type='checkbox' var='allowCrossOver'></span><br/>
-			<button onclick="resetLoop()">Reset Tanks</button>
-			<button onclick="openStopwatch()">Open Stopwatch</button>
+			<span class='setting' alias='Remove Barrier' type='checkbox' var='allowCrossOver'></span>
+			<button onclick="resetLoop()">Reset Tanks</button><br/>
+			Time:<span id='time'>0</span><br/>
+			<button onclick="startStopwatch()">Start</button>
+			<button onclick="stopStopwatch()">Stop</button>
 		</format>
 		
 		<hr/>

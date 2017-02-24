@@ -33,6 +33,8 @@ var particleMass = 5;
 var ctx;
 var gameLoop;
 var mouse;
+var stopwatchTime;
+var isStopwatchRunning;
 
 $(function(){
 	var canvas = document.getElementById('mainCanvas');
@@ -151,8 +153,13 @@ function printInputs() {
 	
 }
 
-function openStopwatch(){
-	window.open('stopwatch.html', '_blank', 'channelmode=yes');
+function startStopwatch(){
+	stopwatchTime = 0;
+	isStopwatchRunning = true;
+}
+function stopStopwatch(){
+	stopwatchTime = 0;
+	isStopwatchRunning = false;
 }
 
 function refreshSize() {

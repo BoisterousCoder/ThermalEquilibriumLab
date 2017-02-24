@@ -53,6 +53,11 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		c.fill()
 		c.closePath()
 	}
+	
+	if(isStopwatchRunning){
+		stopwatchTime += 1;
+		$('#time').html(Math.round(stopwatchTime/fps));
+	}
 }
 
 function average(array) {
