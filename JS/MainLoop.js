@@ -73,7 +73,7 @@ function particleCollisions(checkIndex, particles) {
 				particle.vel.deg = 2 * wallAngle - particle.vel.deg;
 				let newSpeed = (particleToCheck.vel.r + particle.vel.r) / 2
 				particleToCheck.vel.r = newSpeed;
-				particle = newSpeed;
+				particle.vel.r = newSpeed;
 			}
 		}
 	});
