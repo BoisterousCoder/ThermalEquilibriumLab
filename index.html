@@ -4,7 +4,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <head>
-	<title>Canvas Stuff</title>
+	<title>MTCHS Thermal Equilibrium Chamber</title>
 	<meta charset="utf-8" />
 	<script src="JS/JQuery.js"></script>
 	<script src="JS/Point.js"></script>
@@ -15,6 +15,9 @@
 </head>
 
 <body>
+	<format class='center block'>
+		<h1>MTCHS Thermal Equilibrium Chamber</h1>
+	</format>
 	<div id='canvasContainer'>
 		<label>Left Tank Temperature:
 			<span class='temp' id='tempLeft'></span>
@@ -27,26 +30,24 @@
 	</div>
 	<div id='settings'>
 		<format class='center block'>
-			<span class='setting' alias='Remove Barrier' type='checkbox' var='allowCrossOver'></span>
-			<button onclick="resetLoop()">Reset Tanks</button><br/>
 			Time:<span id='time'>0</span><br/>
-			<button onclick="startStopwatch()">Start</button>
-			<button onclick="stopStopwatch()">Stop</button>
+			<span class='setting' alias='Remove Barrier' onClick='setStopwatch();' type='checkbox' var='allowCrossOver'></span>
+			<button onclick="resetLoop()">Reset Tanks</button><br/>
 		</format>
 		
 		<hr/>
 
 		<format class='block collumns2'>
-			<format class='block'>
+			<format class='center block'>
 				<format class='center block'>Left Tank Settings</format>
-				<span class='setting block' alias='Initial Temperature' type='range' var='initTempLeft' max='30' min='1'></span>
-				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesLeft' max='200' min='50'></span>
+				<span class='setting block' alias='Initial Temperature' type='range' var='initTempLeft' max='50' min='1'></span>
+				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesLeft' max='200' min='10'></span>
 			</format>
 
-			<format class='block'>
+			<format class='center block'>
 				<format class='center block'>Right Tank Settings</format>
-				<span class='setting block' alias='Initial Temperature' type='range' var='initTempRight' max='30' min='1'></span>
-				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='50'></span>
+				<span class='setting block' alias='Initial Temperature' type='range' var='initTempRight' max='50' min='1'></span>
+				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='10'></span>
 			</format>
 		</format>
 

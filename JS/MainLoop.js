@@ -28,8 +28,9 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		c.strokeStyle = 'black';
 		c.lineWidth = 0.2;
 	});
-
-	$('#tempLeft').html(Math.round(average(leftTemps)* particleMass * roundingAccuaracy)/roundingAccuaracy);
+	
+	roundedTempLeft = Math.round(average(leftTemps)* particleMass * roundingAccuaracy)/roundingAccuaracy;
+	$('#tempLeft').html(roundedTempLeft);
 
 	particlesRight.forEach(function (particle, i) {
 		rightTemps.push(particle.vel.r);
@@ -43,8 +44,9 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 		c.strokeStyle = 'black';
 		c.lineWidth = 0.2;
 	});
-
-	$('#tempRight').html(Math.round(average(rightTemps) * particleMass * roundingAccuaracy)/roundingAccuaracy);
+	
+	roundedTempRight = Math.round(average(rightTemps) * particleMass * roundingAccuaracy)/roundingAccuaracy;
+	$('#tempRight').html(roundedTempRight);
 	
 	if(!allowCrossOver){
 		c.beginPath()
@@ -57,6 +59,10 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 	if(isStopwatchRunning){
 		stopwatchTime += 1;
 		$('#time').html(Math.round(stopwatchTime/fps));
+		if(roundedTempLeft-roundedTempRight <= 0.01){
+			$('[type=checkbox]').click();
+			alert('You have reached a thermal temperature of '+ roundedTempLeft + "in " + Math.round(stopwatchTime/fps) + " seconds");
+		}
 	}
 }
 

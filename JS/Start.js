@@ -2,8 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 //user settings
-const fps = 30;
-const roundingAccuaracy = 100;
+const fps = 30;//This is the maximum frames per second, lag can make the simulaton slower if there is lag.
+const roundingAccuaracy = 100;//This is the rounding on the temperatures shown above the tank
+var particleMass = 5;//This changes the scaling on how fast the lab goes
+var equilibriumFudging = 0.01;//This is the amount of error after rounding the program will accept as an equilibrium
 
 //left side
 var initTempLeft = 20;
@@ -27,7 +29,6 @@ var particleRadius = 0.5;
 var canvasRatio = 2.01;
 var isFriction = false;
 var allowCrossOver = false;
-var particleMass = 5;
 
 //global vars
 var ctx;
@@ -35,6 +36,8 @@ var gameLoop;
 var mouse;
 var stopwatchTime;
 var isStopwatchRunning;
+var roundedTempLeft;
+var roundedTempRight;
 
 $(function(){
 	var canvas = document.getElementById('mainCanvas');
@@ -46,7 +49,12 @@ $(function(){
 });
 
 function resetLoop(){
-	allowCrossOver = false;
+	//allowCrossOver = false;
+	if(allowCrossOver){
+		$('[type=checkbox]').click();
+		stopwatchTime = 0;
+		$('#time').html(0);
+	}
 	clearInterval(gameLoop);
 	init(ctx);
 }
@@ -153,13 +161,13 @@ function printInputs() {
 	
 }
 
-function startStopwatch(){
-	stopwatchTime = 0;
-	isStopwatchRunning = true;
-}
-function stopStopwatch(){
-	stopwatchTime = 0;
-	isStopwatchRunning = false;
+function setStopwatch(){
+	if(!allowCrossOver){
+		stopwatchTime = 0;
+		isStopwatchRunning = true;
+	}else{
+		isStopwatchRunning = false;
+	}
 }
 
 function refreshSize() {
