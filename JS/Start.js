@@ -6,6 +6,7 @@ const fps = 30;//This is the maximum frames per second, lag can make the simulat
 const roundingAccuaracy = 100;//This is the rounding on the temperatures shown above the tank
 var particleMass = 5;//This changes the scaling on how fast the lab goes
 var equilibriumFudging = 0.01;//This is the amount of error after rounding the program will accept as an equilibrium
+var canvasSize = 0.65;//Overall size of the canvas
 
 //left side
 var initTempLeft = 20;
@@ -34,7 +35,7 @@ var allowCrossOver = false;
 var ctx;
 var gameLoop;
 var mouse;
-var stopwatchTime;
+var stopwatchTime = 0;
 var isStopwatchRunning;
 var roundedTempLeft;
 var roundedTempRight;
@@ -163,7 +164,6 @@ function printInputs() {
 
 function setStopwatch(){
 	if(!allowCrossOver){
-		stopwatchTime = 0;
 		isStopwatchRunning = true;
 	}else{
 		isStopwatchRunning = false;
@@ -171,8 +171,8 @@ function setStopwatch(){
 }
 
 function refreshSize() {
-	ctx.canvas.width = window.innerWidth*0.7;
-	ctx.canvas.height = window.innerWidth*0.7 / canvasRatio;
+	ctx.canvas.width = window.innerWidth*canvasSize;
+	ctx.canvas.height = window.innerWidth*canvasSize / canvasRatio;
 	$('#canvasContainer').css('width', ctx.canvas.width);
 	$('#canvasContainer label').css('width', ctx.canvas.width/2.1);
 	$('#canvasContainer label').css('display', 'inline-block');
