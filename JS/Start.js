@@ -53,9 +53,9 @@ function resetLoop(){
 	//allowCrossOver = false;
 	if(allowCrossOver){
 		$('[type=checkbox]').click();
-		stopwatchTime = 0;
-		$('#time').html(0);
 	}
+	stopwatchTime = 0;
+	$('#time').html(0);
 	clearInterval(gameLoop);
 	init(ctx);
 }

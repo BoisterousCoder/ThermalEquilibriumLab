@@ -59,9 +59,11 @@ function mainLoop(particlesLeft, particlesRight, translation) {
 	if(isStopwatchRunning){
 		stopwatchTime += 1;
 		$('#time').html(Math.round(stopwatchTime/fps));
-		if(roundedTempLeft-roundedTempRight <= 0.01){
+		if(Math.abs(roundedTempLeft-roundedTempRight) <= 0.01){
 			$('[type=checkbox]').click();
-			alert('You have reached a thermal temperature of '+ roundedTempLeft + "in " + Math.round(stopwatchTime/fps) + " seconds");
+			alert('You have reached a thermal temperature of '+ roundedTempLeft + " in " + Math.round(stopwatchTime/fps) + " seconds");
+			stopwatchTime = 0;
+			$('#time').html(0);
 		}
 	}
 }
