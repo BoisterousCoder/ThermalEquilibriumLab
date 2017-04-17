@@ -152,11 +152,32 @@ function printInputs() {
 		} else {
 			settingInput.val(initValue);
 		}
-
+		if(settingInput.attr('type')=='range'){
+			settingContainer.append($('<button class="adder">+</buttom>'));
+			settingContainer.append($('<button class="subtractor">-</buttom>'));
+		}
 	});
 	$('[type="range"]').change(function(e){
 		let target = $(this);
 		target.parent().children('p').html(target.val())
+	});
+	$('.adder').click(function(e){
+		let target = $(this);
+		let varName = target.parent().attr('var');
+		let value = window[varName];
+		value++;
+		window[varName] = value;
+		target.parent().children('input').val(value);
+		target.parent().children('p').html(value);
+	});
+	$('.subtractor').click(function(e){
+		let target = $(this);
+		let varName = target.parent().attr('var');
+		let value = window[varName];
+		value--;
+		window[varName] = value;
+		target.parent().children('input').val(value);
+		target.parent().children('p').html(value);
 	});
 	//Clock is http://flipclockjs.com/
 	

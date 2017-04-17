@@ -79,7 +79,7 @@ function average(array) {
 function particleCollisions(checkIndex, particles) {
 	particle = particles[checkIndex];
 	particles.map(function (particleToCheck, i) {
-		if (i != checkIndex && i != 0 && i < checkIndex) {
+		if (i < checkIndex) {
 			var distance = particleToCheck.distance(particle);
 			if (distance.r <= particleToCheck.radius + particle.radius) {
 				let wallAngle = distance.deg + 90;
