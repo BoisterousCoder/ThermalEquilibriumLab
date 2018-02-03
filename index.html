@@ -4,64 +4,65 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <head>
-	<title>MTCHS Thermal Equilibrium Chamber</title>
-	<meta charset="utf-8" />
-	<script src="JS/JQuery.js"></script>
-	<script src="JS/Point.js"></script>
-	<script src="JS/MainLoop.js"></script>
-	<script src="JS/Start.js"></script>
-	<link rel="stylesheet" href="CSS/flipclock.css">
-	<link rel="stylesheet" href="CSS/main.css">
+    <title>MTCHS Thermal Equilibrium Chamber</title>
+    <meta charset="utf-8" />
+    <script src="JS/JQuery.js"></script>
+    <script src="JS/Point.js"></script>
+    <script src="JS/MainLoop.js"></script>
+    <script src="JS/Start.js"></script>
+    <link rel="stylesheet" href="CSS/flipclock.css">
+    <link rel="stylesheet" href="CSS/main.css">
 </head>
 
 <body>
-	<format class='center block'>
-		<h1>MTCHS Thermal Equilibrium Chamber</h1>
-	</format>
-	<div id='canvasContainer'>
-		<label>Left Tank Temperature:
-			<span class='temp' id='tempLeft'></span>
-		</label>
-		<label>Right Tank Temperature:
-			<span class='temp' id='tempRight'></span>
-		</label>
-		<br/>
-		<canvas id='mainCanvas'>You dont have html5</canvas>
-	</div>
-	<div id='settings'>
-		<format class='center block'>
-			Time:<span id='time'>0</span><br/>
-			<span class='setting' alias='Remove Barrier' onClick='setStopwatch();' type='checkbox' var='allowCrossOver'></span>
-			<button onclick="resetLoop()">Reset Tanks</button><br/>
-		</format>
-		
-		<hr/>
+    <format class='center block'>
+        <h1>MTCHS Thermal Equilibrium Chamber</h1>
+    </format>
+    <div id='canvasContainer'>
+        <label>Left Tank Temperature:
+            <span class='temp' id='tempLeft'></span>
+        </label>
+        <label>Right Tank Temperature:
+            <span class='temp' id='tempRight'></span>
+        </label>
+        <br/>
+        <canvas id='mainCanvas'>You dont have html5</canvas>
+    </div>
+    <div id='settings'>
+        <format class='center block'>
+            Time:<span id='time'>0</span><br/>
+            <!-- <span class='setting' alias='Remove Barrier' onClick='setStopwatch();' type='checkbox' var='allowCrossOver'></span> -->
+            <button id='barrierButton' onclick="setStopwatch();toggleBarrier();"></button>
+            <button onclick="resetLoop()">Reset Tanks</button><br/>
+        </format>
+        
+        <hr/>
 
-		<format class='block collumns2'>
-			<format class='center block'>
-				<format class='center block'>Left Tank Settings</format>
-				<span class='setting block' alias='Initial Temperature' type='range' var='initTempLeft' max='50' min='1'></span>
-				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesLeft' max='200' min='10'></span>
-			</format>
+        <format class='block collumns2'>
+            <format class='center block'>
+                <format class='center block'>Left Tank Settings</format>
+                <span class='setting block' alias='Initial Temperature' type='range' var='initTempLeft' max='50' min='1'></span>
+                <span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesLeft' max='200' min='10'></span>
+            </format>
 
-			<format class='center block'>
-				<format class='center block'>Right Tank Settings</format>
-				<span class='setting block' alias='Initial Temperature' type='range' var='initTempRight' max='50' min='1'></span>
-				<span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='10'></span>
-			</format>
-		</format>
+            <format class='center block'>
+                <format class='center block'>Right Tank Settings</format>
+                <span class='setting block' alias='Initial Temperature' type='range' var='initTempRight' max='50' min='1'></span>
+                <span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='10'></span>
+            </format>
+        </format>
 
-		<hr/>
-		
-		<format class='center block'>Extras</format>
-		<format class='block collumns3'>
-			<format class='block'>
-				<span class='setting block' type='color' alias='Particle Color' var='particleColor'></span>
-				<span class='setting block' type='color' alias='Background Color' var='backgroundColor'></span>
-				<span class='setting block' type='color' alias='Barrier Color' var='barrierColor'></span>
-			</format>
-		</format>
-	</div>
+        <hr/>
+        
+        <format class='center block'>Extras</format>
+        <format class='block collumns3'>
+            <format class='block'>
+                <span class='setting block' type='color' alias='Particle Color' var='particleColor'></span>
+                <span class='setting block' type='color' alias='Background Color' var='backgroundColor'></span>
+                <span class='setting block' type='color' alias='Barrier Color' var='barrierColor'></span>
+            </format>
+        </format>
+    </div>
 </body>
 
 </html>
