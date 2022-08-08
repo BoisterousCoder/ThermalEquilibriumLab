@@ -39,6 +39,9 @@ class Point {
 		return this;
 	}
 	distance(otherPoint) {
+		if(!otherPoint){
+			console.log("test");
+		}
 		var distance = new Point(this.x - otherPoint.x, this.y - otherPoint.y);
 		return distance;
 	}

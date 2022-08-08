@@ -22,14 +22,14 @@ function mainLoop(particlesLeft, particlesRight, translation) {
         particle.y += particle.vel.y / particle.mass;
         c.fillStyle = particleColor;
         reflectParticle(particle, 0, i, particlesLeft, particlesRight);
-        particleCollisions(i, particlesLeft);
+        particleCollisions(particle, particlesLeft, i);
         particle.fill(c, particle.radius);
 
         c.strokeStyle = 'black';
         c.lineWidth = 0.2;
     });
     
-    roundedTempLeft = Math.round(average(leftTemps)* particleMass * roundingAccuaracy)/roundingAccuaracy;
+    roundedTempLeft = Math.round(average(leftTemps) * simSpeed * roundingAccuaracy)/roundingAccuaracy;
     $('#tempLeft').html(roundedTempLeft);
 
     particlesRight.map(function (particle, i) {
@@ -38,14 +38,14 @@ function mainLoop(particlesLeft, particlesRight, translation) {
         particle.y += particle.vel.y / particle.mass;
         c.fillStyle = particleColor;
         reflectParticle(particle, translation, i, particlesLeft, particlesRight);
-        particleCollisions(i, particlesRight);
+        particleCollisions(particle, particlesRight, i);
         particle.fill(c, particle.radius);
 
         c.strokeStyle = 'black';
         c.lineWidth = 0.2;
     });
     
-    roundedTempRight = Math.round(average(rightTemps) * particleMass * roundingAccuaracy)/roundingAccuaracy;
+    roundedTempRight = Math.round(average(rightTemps) * simSpeed * roundingAccuaracy)/roundingAccuaracy;
     $('#tempRight').html(roundedTempRight);
     
     if(!allowCrossOver){
@@ -76,15 +76,15 @@ function average(array) {
     return avg;
 }
 
-function particleCollisions(checkIndex, particles) {
-    particle = particles[checkIndex];
+function particleCollisions(particle, particles, checkIndex) {
+    //particle = particles[checkIndex];
     particles.map(function (particleToCheck, i) {
         if (i < checkIndex) {
             var distance = particleToCheck.distance(particle);
             if (distance.r <= particleToCheck.radius + particle.radius) {
                 let wallAngle = distance.deg + 90;
                 particle.vel.deg = 2 * wallAngle - particle.vel.deg;
-                let newSpeed = (particleToCheck.vel.r + particle.vel.r) / 2
+                let newSpeed = (particleToCheck.vel.r * particleToCheck.mass + particle.vel.r * particle.mass) / (particleToCheck.mass+particle.mass);
                 particleToCheck.vel.deg = 2 * wallAngle + particleToCheck.vel.deg;
                 particleToCheck.vel.r = newSpeed;
                 particle.vel.r = newSpeed;

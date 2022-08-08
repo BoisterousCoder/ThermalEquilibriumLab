@@ -31,7 +31,6 @@
     <div id='settings'>
         <format class='center block'>
             Time:<span id='time'>0</span><br/>
-            <!-- <span class='setting' alias='Remove Barrier' onClick='setStopwatch();' type='checkbox' var='allowCrossOver'></span> -->
             <button id='barrierButton' onclick="setStopwatch();toggleBarrier();"></button>
             <button onclick="resetLoop()">Reset Tanks</button><br/>
         </format>
@@ -43,12 +42,14 @@
                 <format class='center block'>Left Tank Settings</format>
                 <span class='setting block' alias='Initial Temperature' type='range' var='initTempLeft' max='50' min='1'></span>
                 <span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesLeft' max='200' min='10'></span>
+                <span class='setting block' alias='Particle Mass' type='range' var='particleMassLeft' max='20' min='1'></span>
             </format>
 
             <format class='center block'>
                 <format class='center block'>Right Tank Settings</format>
                 <span class='setting block' alias='Initial Temperature' type='range' var='initTempRight' max='50' min='1'></span>
                 <span class='setting block' alias='Number Of Particles' type='range' var='numberOfParticlesRight' max='200' min='10'></span>
+                <span class='setting block' alias='Particle Mass' type='range' var='particleMassRight' max='20' min='1'></span>
             </format>
         </format>
 

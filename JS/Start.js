@@ -4,17 +4,19 @@
 //user settings
 const fps = 30;//This is the maximum frames per second, lag can make the simulaton slower if there is lag.
 const roundingAccuaracy = 100;//This is the rounding on the temperatures shown above the tank
-var particleMass = 5;//This changes the scaling on how fast the lab goes
-var equilibriumFudging = 0.01;//This is the amount of error after rounding the program will accept as an equilibrium
-var canvasSize = 0.65;//Overall size of the canvas
+const simSpeed = 5;//This scales initial velocities of the particals to make the simulatation appear to run slower
+const equilibriumFudging = 0.01;//This is the amount of error after rounding the program will accept as an equilibrium
+const canvasSize = 0.65;//Overall size of the canvas
 
 //left side
 var initTempLeft = 20;
 var numberOfParticlesLeft = 100;
+var particleMassLeft = 5;
 
 //right side
 var initTempRight = 10;
 var numberOfParticlesRight = 200;
+var particleMassRight = 5;
 
 /*
 
@@ -63,31 +65,29 @@ function resetLoop(){
 function init(c) {
     var particlesLeft = [];
     var particlesRight = [];
-    
+
     //premake particle obj
     for (let i = 0; i < numberOfParticlesLeft; i++) {
-        let initForce = new Point(0, 0);
-        initForce.r = initTempLeft;
-        initForce.deg = i * (360 / numberOfParticlesLeft);
+        let initVel = new Point(0, 0);
+        initVel.r = initTempLeft/simSpeed;
+        initVel.deg = i * (360 / numberOfParticlesLeft);
         let initPoint = getPointOnCircle(((2 * numberOfParticlesLeft - 1) * particleRadius - 1) / (2 * Math.PI), i * (1 / numberOfParticlesLeft))
         initPoint.x += 50;
         initPoint.y += 50;
 
-        makeParticle(initPoint, particleRadius, particleMass, initForce, particlesLeft);
+        makeParticle(initPoint, particleRadius, particleMassLeft, initVel, particlesLeft);
     }
     
     for (let i = 0; i < numberOfParticlesRight; i++) {
-        let initForce = new Point(0, 0);
-        initForce.r = initTempRight;
-        initForce.deg = i * (360 / numberOfParticlesRight);
+        let initVel = new Point(0, 0);
+        initVel.r = initTempRight/simSpeed;
+        initVel.deg = i * (360 / numberOfParticlesRight);
         let initPoint = getPointOnCircle(((2 * numberOfParticlesRight - 1) * particleRadius - 1) / (2 * Math.PI), i * (1 / numberOfParticlesRight))
         initPoint.x += 151;
         initPoint.y += 50;
 
-        makeParticle(initPoint, particleRadius, particleMass, initForce, particlesRight);
+        makeParticle(initPoint, particleRadius, particleMassRight, initVel, particlesRight);
     }
-
-    //initArrowKeys();
 
     //start loop
     gameLoop = setInterval(makeMainLoop(particlesLeft, particlesRight, 100), 1000 / fps);
@@ -109,17 +109,11 @@ function setBarrierButtonText(){
     }
 }
 
-function makeParticle(initPoint, radius, mass, initForce, list) {
+function makeParticle(initPoint, radius, mass, initVel, list) {
     var particle = new Point(initPoint.x, initPoint.y);
-    particle.vel = new Point(0, 0);
+    particle.vel = initVel;
     particle.mass = mass;
     particle.radius = radius;
-    particle.applyForce = function (force) {
-        accelleration = force.scale(1 / particle.mass);
-        particle.vel.x += accelleration.x;
-        particle.vel.y += accelleration.y;
-    }
-    particle.applyForce(initForce);
     list.push(particle);
 }
 
